@@ -1,9 +1,9 @@
 # CryptoInfo
 
 ### What's included:
-- Server-side rendering, data fetching and client-side hydration
+- Server-side rendering, data fetching and client-side hydration (TypeScript supported)
 - Dev server with hot reloading styles (nodemon)
-- ESLinter 
+- ESLinter (+ TS)
 
 ### Initial setup
     yarn run init
