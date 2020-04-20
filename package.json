@@ -1,0 +1,47 @@
+{
+  "name": "CryptoInfo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "init": "yarn && cd client && yarn",
+    "start": "concurrently --kill-others \"yarn run build && node ./dist/src/server\" \"cd client && yarn start\"",
+    "dev": "concurrently --kill-others \"cd client && yarn start\" \"nodemon\"",
+    "dev:server": "nodemon",
+    "dev:client": "cd client && yarn start",
+    "build": "rm -rf ./dist && tsc -p .",
+    "clean": "rm -rf dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Nikolaos Kontakis",
+  "license": "ISC",
+  "dependencies": {
+    "acorn": "^7.1.1",
+    "body-parser": "^1.19.0",
+    "coingecko-api": "^1.0.10",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "fetch": "^1.1.0",
+    "helmet": "^3.22.0",
+    "minimist": "^1.2.5"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.6",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.6",
+    "@types/helmet": "0.0.45",
+    "@types/node": "^13.13.0",
+    "@typescript-eslint/eslint-plugin": "^2.28.0",
+    "@typescript-eslint/parser": "^2.28.0",
+    "concurrently": "^5.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.2",
+    "nodemon": "^2.0.3",
+    "ts-loader": "^6.2.2",
+    "ts-node": "^8.8.2",
+    "typescript": "^3.8.3"
+  }
+}
