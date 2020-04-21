@@ -25,7 +25,8 @@
     "express": "^4.17.1",
     "fetch": "^1.1.0",
     "helmet": "^3.22.0",
-    "minimist": "^1.2.5"
+    "minimist": "^1.2.5",
+    "node-cache": "^5.1.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",
