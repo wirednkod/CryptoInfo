@@ -1,9 +1,11 @@
 # CryptoInfo
 
 ### What's included:
-- Server-side rendering, data fetching and client-side hydration (TypeScript supported)
-- Dev server with hot reloading styles (nodemon)
-- ESLinter (+ TS)
+- Node (server) and Client in 1 repo; 
+- Server-side rendering, data fetching and client-side hydration (TypeScript supported);
+- Dev server with hot reloading styles (nodemon);
+- ESLinter (+ TS);
+- Using CoinGeck API (v3);
 
 ### Initial setup
     yarn run init
