@@ -1,5 +1,6 @@
 import * as express from 'express'
 import { Request, Response } from 'express'
+import cryptoCache from '../cache/cryptoCache'
 
 class BasicRouter {
     public path = '/api'
@@ -12,7 +13,8 @@ class BasicRouter {
 
     public initRoutes() {
         this.router.get(`${this.path}/`, (req: Request, res: Response) => {
-            res.send({ success: true, data: 'This is the basic route' })
+            const lala = cryptoCache.get('coinlist')
+            res.send({ success: true, data: lala })
         })
     }
 }
