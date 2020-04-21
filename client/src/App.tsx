@@ -1,24 +1,10 @@
 import React, { PureComponent } from 'react'
-import logo from './logo.svg'
 import './App.css'
 import { Button, Radio } from 'antd'
-import { DownloadOutlined } from '@ant-design/icons'
-import { SizeType } from 'antd/lib/config-provider/SizeContext'
 
-type SizeState = {
-  size: String
-}
-
-class App extends PureComponent<{}, SizeState> {
-  constructor(props) {
-    super(props)
-    this.state = {
-      size: 'large'
-    }
-  }
-
-  componentDidMount () {
-    this.setState({ size: 'large' })
+class App extends PureComponent {
+  state = {
+    size: 'large'
   }
 
   handleSizeChange = (e:any) => {
@@ -37,26 +23,16 @@ class App extends PureComponent<{}, SizeState> {
           </Radio.Group>
           <br />
           <br />
-          <Button type="primary" size={size}>
+          <Button type="primary" size={this.state.size}>
             Primary
           </Button>
-          <Button size={size}>Default</Button>
-          <Button type="dashed" size={size}>
+          <Button size={this.state.size}>Default</Button>
+          <Button type="dashed" size={this.state.size}>
             Dashed
           </Button>
           <br />
-          <Button type="link" size={size}>
+          <Button type="link" size={this.state.size}>
             Link
-          </Button>
-          <br />
-          <Button type="primary" icon={<DownloadOutlined />} size={size} />
-          <Button type="primary" shape="circle" icon={<DownloadOutlined />} size={size} />
-          <Button type="primary" shape="round" icon={<DownloadOutlined />} size={size} />
-          <Button type="primary" shape="round" icon={<DownloadOutlined />} size={size}>
-            Download
-          </Button>
-          <Button type="primary" icon={<DownloadOutlined />} size={size}>
-            Download
           </Button>
         </div>
         </header>
