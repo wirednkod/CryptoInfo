@@ -11,7 +11,7 @@ class App extends PureComponent {
     this.setState({ size: e.target.value });
   }
   render() {
-    let size = this.state.size
+    let { size } = this.state
     return (
       <div className="App">
         <header className="App-header">
