@@ -16,14 +16,23 @@ interface UsefulDataObject {
 const MainContent = () =>  {
   const [size, setSize] = useState<SizeType>()
   const [usefulData, setUsefulData] = useState<UsefulDataObject>()
+  const [marks, setMarks] = useState()
 
   useEffect(() => {
     fetch("http://localhost:8000/gecko/global")
     .then(res => res.json())
     .then(res => {
+      console.log('global', res)
       let { active_cryptocurrencies, upcoming_icos, ended_icos, markets, market_cap_change_percentage_24h_usd, updated_at } = res.data
       let obj = { active_cryptocurrencies, upcoming_icos, ended_icos, markets, market_cap_change_percentage_24h_usd, updated_at }
       setUsefulData(obj)
+    }, err => console.log('error occured', err))
+
+    fetch("http://localhost:8000/gecko/coins/markets")
+    .then(res => res.json())
+    .then(res => {
+      console.log('markets', res)
+      setMarks(res.data)
     }, err => console.log('error occured', err))
   }, [])
 
@@ -35,6 +44,17 @@ const MainContent = () =>  {
     }
     return lis
   }
+
+  const latestMarkets = (markets: object) => {
+    console.log('marks', markets)
+    let lis = []
+    markets.forEach(m => {
+      console.log('m', m)
+      lis.push(<li>{m.name}</li>)
+    })
+    return lis
+  }
+
   return (
     <Layout.Content style={{ margin: '0 16px' }}>
       <Switch>
@@ -70,6 +90,7 @@ const MainContent = () =>  {
         <ul>
           {latestInfo()}
         </ul>
+        <ul>{marks && latestMarkets(marks)}</ul>
       </div>
     </Layout.Content>
   )
