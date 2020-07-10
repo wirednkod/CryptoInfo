@@ -11,10 +11,10 @@ class BasicRouter {
         this.initRoutes()
     }
 
-    public initRoutes() {
+    public initRoutes = () => {
         this.router.get(`${this.path}/`, (req: Request, res: Response) => {
-            const lala = cryptoCache.get('coinlist')
-            res.send({ success: true, data: lala })
+            const coinlist = cryptoCache.get('coinlist')
+            res.send({ success: true, data: coinlist })
         })
     }
 }
