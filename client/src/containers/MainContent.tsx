@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Layout, Button, Radio } from 'antd'
+import axios from 'axios'
 import { Switch, Route } from 'react-router-dom'
 import './MainContent.less'
 
@@ -19,21 +20,17 @@ const MainContent = () =>  {
   const [marks, setMarks] = useState()
 
   useEffect(() => {
-    fetch("http://localhost:8000/gecko/global")
-    .then(res => res.json())
-    .then(res => {
-      console.log('global', res)
-      let { active_cryptocurrencies, upcoming_icos, ended_icos, markets, market_cap_change_percentage_24h_usd, updated_at } = res.data
+    const loader = async () => {
+      let res1 = await axios.get("http://localhost:8000/gecko/global")
+      console.log('global', res1)
+      let { active_cryptocurrencies, upcoming_icos, ended_icos, markets, market_cap_change_percentage_24h_usd, updated_at } = res1.data
       let obj = { active_cryptocurrencies, upcoming_icos, ended_icos, markets, market_cap_change_percentage_24h_usd, updated_at }
       setUsefulData(obj)
-    }, err => console.log('error occured', err))
-
-    fetch("http://localhost:8000/gecko/coins/markets")
-    .then(res => res.json())
-    .then(res => {
-      console.log('markets', res)
-      setMarks(res.data)
-    }, err => console.log('error occured', err))
+      let res2 =  await axios.get("http://localhost:8000/gecko/coins/markets")
+      console.log('markets', res2)
+      setMarks(res2.data)
+    }
+    loader()    
   }, [])
 
   const latestInfo = () => {
