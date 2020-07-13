@@ -45,7 +45,6 @@ class GeckoRouter {
         })
 
         this.router.get(`${this.path}/coins/markets`, async (req: Request, res: Response) => {
-            console.log('request on markets is', req)
             let response
             const markets = cryptoCache.get('markets')
             if (markets) {

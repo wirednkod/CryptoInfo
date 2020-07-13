@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react'
 import { Layout, message } from 'antd'
 import axios from 'axios'
 import MainMenu from './MainMenu'
-import MainContent from './MainContent'
+import Body from './Body'
 import { BrowserRouter } from 'react-router-dom'
 
 interface UsefulDataObject {
@@ -30,7 +30,14 @@ const Main = () =>  {
 
   useEffect(() => {
     const callGlobal = async () => {
-      let data: UsefulDataObject = usefulData
+      let data: UsefulDataObject = {
+        active_cryptocurrencies: 0,
+        upcoming_icos: 0,
+        ended_icos: 0,
+        markets: 0,
+        market_cap_change_percentage_24h_usd: 0,
+        updated_at: 0
+      }
       try {
         let res = await axios.get("http://localhost:8000/gecko/global")
         let { active_cryptocurrencies, upcoming_icos, ended_icos, markets, market_cap_change_percentage_24h_usd, updated_at } = res && res.data && res.data.data
@@ -63,9 +70,9 @@ const Main = () =>  {
     <BrowserRouter>
       <Layout style={{ minHeight: '100vh' }}>
         <MainMenu />
-        <MainContent
+        <Body
           global={usefulData}
-          markets={marks}
+          markets={marks || []}
           globalLoading={globalLoading}
           marketsLoading={marketsLoading} />
       </Layout>

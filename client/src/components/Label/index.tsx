@@ -23,9 +23,7 @@ const Label = ({ title, value, seperator = '', align = 'left'}: LabelProps) =>  
     </>)
   }
   return (
-    <p style={{ textAlign: align }}>
-      {i}
-    </p>
+    <div className="main-label">{i}</div>
   )
 }
 
