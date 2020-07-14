@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, Row, Col, Spin, Table } from 'antd'
+import { Layout, Row, Col, Table } from 'antd'
 import { Switch, Route } from 'react-router-dom'
-import Label from '../components/Label'
+import { upperCase } from 'lodash'
+import { Formatter } from '@helpers/Utils'
+import { Label } from '@components'
 import './Body.less'
 
 type SizeType = 'small' | 'middle' | 'large' | undefined
@@ -25,6 +27,7 @@ const columns = [{
     title: 'Rank',
     dataIndex: 'rank',
     key: 'rank',
+    align: 'center'
   }, {
     title: 'Name',
     dataIndex: 'name',
@@ -34,22 +37,40 @@ const columns = [{
     title: 'Symbol',
     dataIndex: 'symbol',
     key: 'symbol',
+    align: 'center',
+    render: (r: string) => upperCase(r)
   }, {
     title: 'Market Cap',
     dataIndex: 'market_cap',
     key: 'market_cap',
+    align: 'right',
+    render: (k: number) => Formatter(k, 0)
   }, {
     title: 'Price',
     dataIndex: 'current_price',
     key: 'current_price',
+    align: 'right',
+    render: (k: number) => Formatter(k)
   }, {
     title: 'Circ. Supply',
     dataIndex: 'circulating_supply',
     key: 'circulating_supply',
+    align: 'right',
+    render: (k: number) => Formatter(k)
   }, {
     title: 'Price Change %(24h)',
     dataIndex: 'price_change_percentage_24h',
-    key: 'price_change_percentage_24h'
+    key: 'price_change_percentage_24h',
+    align: 'center',
+    render: (k: number) => {
+      let result = 'green'
+      if (k < 0) {
+        result= 'red'
+      } else if (k === 0) {
+        result = 'black'
+      }
+      return (<span style={{ fontWeight: 'bold', color: result}}>{ Formatter(k, 2, 'percent') }</span>)
+    }
   }]
 
 const { Footer } = Layout
@@ -73,7 +94,7 @@ const Body = ({ global, markets, globalLoading, marketsLoading } : MainContentPr
 
   useEffect(() => {
     const mostFamous = (markets: Array<any>, howMany?: number) => {
-      let a = markets && markets.map(m => ({
+      let a = Array.prototype.map.call(markets, m => ({
         'key': m.market_cap_rank,
         'rank': m.market_cap_rank,
         'name': [m.image, m.name],
@@ -90,17 +111,15 @@ const Body = ({ global, markets, globalLoading, marketsLoading } : MainContentPr
   
   return (
     <Layout className="site-layout">
-      <Spin spinning={globalLoading}>
-        <Row className="top-info">
-          <Col span={24}>
-            <Label title="Active crypto" value={active} />
-            <Label title="Markets" value={marks} />
-            <Label title="Market Cap %Ch" value={marketCap?.toFixed(2)} />
-            <Label title="Upcoming ICOs" value={upcomingIcos} />
-            <Label title="Ended ICOs" value={endedIcos} />
-          </Col>
-        </Row>
-      </Spin>
+      <Row className="top-info">
+        <Col span={24}>
+          <Label title="Active crypto" value={Formatter(active, undefined, 'decimal')} />
+          <Label title="Markets" value={Formatter(marks, undefined, 'decimal')} />
+          <Label title="Market Cap Change" value={Formatter(marketCap, 2, 'percent')} />
+          <Label title="Upcoming ICOs" value={Formatter(upcomingIcos, undefined, 'decimal')} />
+          <Label title="Ended ICOs" value={Formatter(endedIcos, undefined, 'decimal')} />
+        </Col>
+      </Row>
       <Layout.Content style={{ margin: '0 16px' }}>
         <Switch>
           <Route path="/">

@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-      "src/*": ["src/*"],
-      "components/*": ["src/components/*"],
-      "containers/*": ["src/containers/*"]
+      "@components/*": ["./components/*", "./components/"],
+      "@containers/*": ["./containers/*", "./containers/"],
+      "@helpers/*": ["./helpers/*", "./helpers/"]
     }
   }
 }
