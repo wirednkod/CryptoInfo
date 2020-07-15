@@ -20,7 +20,7 @@ const MainMenu = () =>  {
   return (
     <Sider collapsible collapsed={collapsed} onCollapse={(col) => setCollapsed(col)}>
       <div className="logo">
-        <img alt="logo" style={{ width: '100%' }} src="/logo.png" />
+        <img alt="logo" style={{ width: collapsed ? '50px' : '100px' }} src="/logo.png" />
       </div>
       <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
         <Menu.Item key="1" icon={<PieChartOutlined />}>

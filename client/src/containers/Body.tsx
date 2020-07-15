@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, Row, Col, Table } from 'antd'
+import { Layout, Row, Col, Table, Button } from 'antd'
 import { Switch, Route } from 'react-router-dom'
 import { upperCase } from 'lodash'
 import { Formatter } from '@helpers/Utils'
@@ -20,11 +20,12 @@ type MainContentProps = {
   global: UsefulDataObject,
   markets: Array<any>,
   globalLoading: boolean,
-  marketsLoading: boolean
+  marketsLoading: boolean,
+  actions: Function
 }
 
 const columns = [{
-    title: 'Rank',
+    title: '#',
     dataIndex: 'rank',
     key: 'rank',
     align: 'center'
@@ -75,7 +76,7 @@ const columns = [{
 
 const { Footer } = Layout
 
-const Body = ({ global, markets, globalLoading, marketsLoading } : MainContentProps) =>  {
+const Body = ({ global, markets, globalLoading, marketsLoading, actions } : MainContentProps) =>  {
   const [active, setActive] = useState<number>()
   const [upcomingIcos, setUpcomingIcos] = useState<number>()
   const [endedIcos, setEndedIcos] = useState<number>()
@@ -108,11 +109,16 @@ const Body = ({ global, markets, globalLoading, marketsLoading } : MainContentPr
     }
     mostFamous(markets)
   }, [markets])
-  
+
   return (
     <Layout className="site-layout">
       <Row className="top-info">
         <Col span={24}>
+          <div style={{ margin: '0 30px 16px 0', float: 'right', zIndex: 50 }}>
+            <Button size="small" type="primary" onClick={() => { actions() }} className='reload-button' loading={marketsLoading}>
+              Reload
+            </Button>
+          </div>
           <Label title="Active crypto" value={Formatter(active, undefined, 'decimal')} />
           <Label title="Markets" value={Formatter(marks, undefined, 'decimal')} />
           <Label title="Market Cap Change" value={Formatter(marketCap, 2, 'percent')} />

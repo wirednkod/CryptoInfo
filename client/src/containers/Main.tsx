@@ -27,44 +27,51 @@ const Main = () =>  {
     updated_at: 0
   })
 
-
   useEffect(() => {
-    const callGlobal = async () => {
-      let data: UsefulDataObject = {
-        active_cryptocurrencies: 0,
-        upcoming_icos: 0,
-        ended_icos: 0,
-        markets: 0,
-        market_cap_change_percentage_24h_usd: 0,
-        updated_at: 0
-      }
-      try {
-        let res = await axios.get("http://localhost:8000/gecko/global")
-        let { active_cryptocurrencies, upcoming_icos, ended_icos, markets, market_cap_change_percentage_24h_usd, updated_at } = res && res.data && res.data.data
-        data = { active_cryptocurrencies, upcoming_icos, ended_icos, markets, market_cap_change_percentage_24h_usd, updated_at }
-      } catch (err) {
-        message.error(`Error while retrieving market data: ${err}`)
-      } finally {
-        setUsefulData(data)
-        setGlobalLoading(false)
-      }
-    }
-
-    const callMarkets = async () => {
-      let data = []
-      try {
-        let res =  await axios.get("http://localhost:8000/gecko/coins/markets")
-        data = res && res.data
-      } catch (err) {
-        message.error(`Error while retrieving market data: ${err}`)
-      } finally {
-        setMarks(data)
-        setMarketsLoading(false)
-      }
-    }
     callMarkets()
     callGlobal()
   }, [])
+
+  const callGlobal = async () => {
+    let data: UsefulDataObject = {
+      active_cryptocurrencies: 0,
+      upcoming_icos: 0,
+      ended_icos: 0,
+      markets: 0,
+      market_cap_change_percentage_24h_usd: 0,
+      updated_at: 0
+    }
+    try {
+      let res = await axios.get("http://localhost:8000/gecko/global")
+      let { active_cryptocurrencies, upcoming_icos, ended_icos, markets, market_cap_change_percentage_24h_usd, updated_at } = res && res.data && res.data.data
+      data = { active_cryptocurrencies, upcoming_icos, ended_icos, markets, market_cap_change_percentage_24h_usd, updated_at }
+    } catch (err) {
+      message.error(`Error while retrieving market data: ${err}`)
+    } finally {
+      setUsefulData(data)
+      setGlobalLoading(false)
+    }
+  }
+
+  const callMarkets = async () => {
+    let data = []
+    try {
+      let res =  await axios.get("http://localhost:8000/gecko/coins/markets")
+      data = res && res.data
+    } catch (err) {
+      message.error(`Error while retrieving market data: ${err}`)
+    } finally {
+      setMarks(data)
+      setMarketsLoading(false)
+    }
+  }
+
+  const callActions  = () => {
+    setGlobalLoading(true)
+    setMarketsLoading(true)
+    callGlobal()
+    callMarkets()
+  }
   
   return (
     <BrowserRouter>
@@ -74,7 +81,9 @@ const Main = () =>  {
           global={usefulData}
           markets={marks || []}
           globalLoading={globalLoading}
-          marketsLoading={marketsLoading} />
+          marketsLoading={marketsLoading}
+          actions={callActions}
+           />
       </Layout>
     </BrowserRouter>
   )
