@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { Layout, Row, Col, Table, Button } from 'antd'
+import { FundTwoTone } from '@ant-design/icons'
 import { Switch, Route } from 'react-router-dom'
-import { upperCase } from 'lodash'
+import { upperCase, toUpper, indexOf } from 'lodash'
 import { Formatter } from '@helpers/Utils'
 import { Label } from '@components'
+import axios from 'axios'
 import './Body.less'
 
 type SizeType = 'small' | 'middle' | 'large' | undefined
+
+const validCharts = ['BTC', 'ETH', 'XRP', 'BCH', 'ADA', 'XLM', 'NEO', 'LTC', 'EOS', 'XEM', 'IOTA', 'DASH', 'XMR', 'TRX', 'ETC', 'QTUM', 'BTG', 'LSK', 'USDT', 'ZEC', 'ZRX', 'DCR', 'BAT', 'LINK', 'DAI', 'XTZ', 'BSV', 'DOGE', 'USDC']
 
 interface UsefulDataObject {
   active_cryptocurrencies: number,
@@ -28,7 +32,8 @@ const columns = [{
     title: '#',
     dataIndex: 'rank',
     key: 'rank',
-    align: 'center'
+    align: 'center',
+    sorter: (a: any, b: any) => a.rank - b.rank,
   }, {
     title: 'Name',
     dataIndex: 'name',
@@ -45,24 +50,28 @@ const columns = [{
     dataIndex: 'market_cap',
     key: 'market_cap',
     align: 'right',
+    sorter: (a: any, b: any) => a.market_cap - b.market_cap,
     render: (k: number) => Formatter(k, 0)
   }, {
     title: 'Price',
     dataIndex: 'current_price',
     key: 'current_price',
     align: 'right',
+    sorter: (a: any, b: any) => a.current_price - b.current_price,
     render: (k: number) => Formatter(k)
   }, {
     title: 'Circ. Supply',
     dataIndex: 'circulating_supply',
     key: 'circulating_supply',
     align: 'right',
+    sorter: (a: any, b: any) => a.circulating_supply - b.circulating_supply,
     render: (k: number) => Formatter(k)
   }, {
     title: 'Price Change %(24h)',
     dataIndex: 'price_change_percentage_24h',
     key: 'price_change_percentage_24h',
     align: 'center',
+    sorter: (a: any, b: any) => a.price_change_percentage_24h - b.price_change_percentage_24h,
     render: (k: number) => {
       let result = 'green'
       if (k < 0) {
@@ -71,6 +80,24 @@ const columns = [{
         result = 'black'
       }
       return (<span style={{ fontWeight: 'bold', color: result}}>{ Formatter(k, 2, 'percent') }</span>)
+    }
+  }, {
+    title: 'Chart',
+    dataIndex: 'chart',
+    key: 'chart',
+    align: 'center',
+    render:  (value: string, row: any, index: number) => {
+      let symb = toUpper(row.symbol)
+      if (indexOf(validCharts, symb) !== -1 ) {
+        return (<FundTwoTone onClick={
+          async () => {
+            console.log('record', value, row, index)
+            let res = await axios.get(`https://production.api.coindesk.com/v2/price/values/${toUpper(row.symbol)}?start_date=2020-07-22T14:38&end_date=2020-07-23T14:38&ohlc=false`)
+            console.log('res is', res)
+          }} />)
+      } else {
+        return null
+      }
     }
   }]
 
