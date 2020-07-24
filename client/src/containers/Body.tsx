@@ -1,13 +1,9 @@
-import { Chart, Tooltip, Axis, Line, Point } from 'viser-react'
 import React, { useState, useEffect } from 'react'
-import { Layout, Row, Col, Table, Button, Popover } from 'antd'
-import { FundTwoTone } from '@ant-design/icons'
+import { Layout, Row, Col, Table, Button, } from 'antd'
 import { Switch, Route } from 'react-router-dom'
 import { upperCase, toUpper, indexOf } from 'lodash'
-import moment from 'moment'
 import { Formatter } from '@helpers/Utils'
-import { Label } from '@components'
-import axios from 'axios'
+import { Label, Charter } from '@components'
 import './Body.less'
 
 type SizeType = 'small' | 'middle' | 'large' | undefined
@@ -29,15 +25,6 @@ type MainContentProps = {
   marketsLoading: boolean,
   actions: Function
 }
-
-const scale = [{
-  dataKey: 'value',
-  min: 0,
-},{
-  dataKey: 'date',
-  min: 0,
-  max: 200,
-}]
 
 const columns = [{
     title: '#',
@@ -106,43 +93,6 @@ const columns = [{
       }
     }
   }]
-
-type CharterProps = {
-  symbol: any
-}
-
-const Charter = ({ symbol } : CharterProps) => {
-  const [data, setData] = useState<object>()
-
-  useEffect(() => {
-    const func = async () => {
-      let fin = []
-      let res = await axios.get(`https://production.api.coindesk.com/v2/price/values/${toUpper(symbol)}?start_date=2020-01-22T14:38&end_date=2020-07-23T14:38&ohlc=false`)
-      let entries = res?.data?.data?.entries
-      if (entries.length) {
-        entries.forEach((entry: Array<number>) => {
-          fin.push({date: moment.unix(entry[0]/1000).format(), value: entry[1]})
-        })
-      }
-      setData(fin)
-    }
-    func()
-  }, [symbol])
-
-  return (
-    <Popover placement="left" title={symbol} content={(
-      <Chart width={1000} height={400} data={data} scale={scale}>
-        <Tooltip />
-        <Axis dataKey="date" />
-        <Axis dataKey="value" />
-        <Line position="date*value" />
-        <Point position="date*value" shape="circle"/>
-      </Chart>
-    )} trigger="click">
-      <FundTwoTone />
-    </Popover>
-  )
-}
 
 const { Footer } = Layout
 
