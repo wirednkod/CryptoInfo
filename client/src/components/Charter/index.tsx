@@ -8,13 +8,11 @@ import axios from 'axios'
 
 const scale = [{
   dataKey: 'value',
-  min: 0,
-  tickInterval: 500,
+  min: 0
 },{
   dataKey: 'date',
   min: 0,
-  max: 200,
-  tickInterval: 500,
+  max: 200
 }]
 
 type CharterProps = {
@@ -29,13 +27,20 @@ const Charter = ({ symbol } : CharterProps) => {
   const getData = async (window: string = moment().subtract(1, 'days').format('YYYY-MM-DDTHH:mm')) => {
     let fin = []
     try {
-      let res = await axios.get(`https://production.api.coindesk.com/v2/price/values/${toUpper(symbol)}?start_date=${currentDate}&end_date=${window}&ohlc=false`)
+      let res = await axios.get(`https://production.api.coindesk.com/v2/price/values/${toUpper(symbol)}?start_date=${window}&end_date=${currentDate}&ohlc=false`)
       let entries = res?.data?.data?.entries
       if (entries.length) {
+        let i = 0
         entries.forEach((entry: Array<number>) => {
-          fin.push({date: moment.unix(entry[0]/1000).format(), value: entry[1]})
+          if (i === 20) {
+            i = 0
+            fin.push({date: moment.unix(entry[0]/1000).format(), value: entry[1]})
+          } else {
+            i++
+          }
         })
       }
+      console.log('fin is', fin)
     } catch (err) {
       message.error(`There was an error while retrieving the data: ${err.details}`)
     }
