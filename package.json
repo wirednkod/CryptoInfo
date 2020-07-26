@@ -9,7 +9,7 @@
   "scripts": {
     "init": "yarn && cd client && yarn",
     "start": "node ./dist/server",
-    "prepare-dirs": "mkdir dist/app && mkdir dist/app/client && cp -r client/build dist/app/client/build",
+    "prepare-dirs": "mkdir dist && mkdir dist/client && cp -r client/build/* dist/client/.",
     "dev": "concurrently --kill-others \"cd client && yarn start\" \"nodemon\"",
     "dev:server": "nodemon",
     "dev:client": "cd client && yarn start",
