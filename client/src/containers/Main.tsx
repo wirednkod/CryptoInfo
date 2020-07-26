@@ -42,7 +42,7 @@ const Main = () =>  {
       updated_at: 0
     }
     try {
-      let res = await axios.get("http://localhost:8000/gecko/global")
+      let res = await axios.get("/gecko/global")
       let { active_cryptocurrencies, upcoming_icos, ended_icos, markets, market_cap_change_percentage_24h_usd, updated_at } = res && res.data && res.data.data
       data = { active_cryptocurrencies, upcoming_icos, ended_icos, markets, market_cap_change_percentage_24h_usd, updated_at }
     } catch (err) {
@@ -56,7 +56,7 @@ const Main = () =>  {
   const callMarkets = async () => {
     let data = []
     try {
-      let res =  await axios.get("http://localhost:8000/gecko/coins/markets")
+      let res =  await axios.get("/gecko/coins/markets")
       data = res && res.data
     } catch (err) {
       message.error(`Error while retrieving market data: ${err}`)
