@@ -8,11 +8,12 @@
   },
   "scripts": {
     "init": "yarn && cd client && yarn",
-    "start": "yarn run build:server && yarn run build:client && yarn run prepare-dirs && node ./dist/server",
+    "start": "node ./dist/server",
     "prepare-dirs": "mkdir dist/client && cp -r client/build dist/client/build",
     "dev": "concurrently --kill-others \"cd client && yarn start\" \"nodemon\"",
     "dev:server": "nodemon",
     "dev:client": "cd client && yarn start",
+    "build:all": "yarn run build:server && yarn run build:client && yarn run prepare-dirs",
     "build:server": "yarn run clean && tsc -p .",
     "build:client": "cd client && yarn run build",
     "clean": "rm -rf ./dist",
