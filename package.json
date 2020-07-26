@@ -4,11 +4,11 @@
   "description": "",
   "main": "server.js",
   "engines": {
-    "node": "14"
+    "node": "13.9.0"
   },
   "scripts": {
     "init": "yarn && cd client && yarn",
-    "start": "concurrently --kill-others \"yarn run build && node ./dist/src/server\" \"cd client && yarn start\"",
+    "start": "concurrently --kill-others \"yarn run build && node ./dist/src/server\"",
     "dev": "concurrently --kill-others \"cd client && yarn start\" \"nodemon\"",
     "dev:server": "nodemon",
     "dev:client": "cd client && yarn start",

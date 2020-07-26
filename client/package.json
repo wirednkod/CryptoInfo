@@ -24,7 +24,7 @@
     "typescript": "~3.7.2"
   },
   "engines": {
-    "node": "14"
+    "node": "13.9.0"
   },
   "scripts": {
     "start": "craco start",
