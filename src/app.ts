@@ -13,9 +13,9 @@ class App {
         this.port = appInit.port
         this.middlewares(appInit.middleWares)
         this.routes(appInit.routes)
-        this.app.use(express.static(path.join('client')))
+        this.app.use(express.static(path.join('./client')))
         this.app.get('/*', (req, res) => {
-            res.sendFile(path.join('client', 'index.html'))
+            res.sendFile('./client/index.html')
         })
         this.assets()
     }
