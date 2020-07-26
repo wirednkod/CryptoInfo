@@ -7,17 +7,15 @@ class App {
 
     public port: number
 
-    public srcpath = path.resolve('.')
-
     constructor(appInit: { port: number; middleWares: any; routes: any; }) {
         this.app = express()
         this.app.use(express.json())
         this.port = appInit.port
         this.middlewares(appInit.middleWares)
         this.routes(appInit.routes)
-        this.app.use(express.static(path.join(this.srcpath, 'client', 'build')))
+        this.app.use(express.static(path.join(__dirname, 'client', 'build')))
         this.app.get('/*', (req, res) => {
-            res.sendFile(path.join(this.srcpath, 'client', 'build', 'index.html'))
+            res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
         })
         this.assets()
     }

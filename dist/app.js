@@ -4,15 +4,14 @@ const express = require("express");
 const path = require("path");
 class App {
     constructor(appInit) {
-        this.srcpath = path.resolve('.');
         this.app = express();
         this.app.use(express.json());
         this.port = appInit.port;
         this.middlewares(appInit.middleWares);
         this.routes(appInit.routes);
-        this.app.use(express.static(path.join(this.srcpath, 'client', 'build')));
+        this.app.use(express.static(path.join(__dirname, 'client', 'build')));
         this.app.get('/*', (req, res) => {
-            res.sendFile(path.join(this.srcpath, 'client', 'build', 'index.html'));
+            res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
         });
         this.assets();
     }
