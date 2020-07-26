@@ -166,7 +166,7 @@ const Body = ({ global, markets, globalLoading, marketsLoading, actions } : Main
           </Route>
         </Switch>
       </Layout.Content>
-      <Footer style={{ textAlign: 'center' }}>CryptoInfo - {(new Date()).getFullYear()} - Created by me</Footer>
+      <Footer style={{ textAlign: 'center' }}>CryptoInfo - {(new Date()).getFullYear()} - Created by <a href="https://github.com/wirednkod" target="_blank">wirednkod</a></Footer>
     </Layout>
   )
 }

@@ -26,13 +26,13 @@ const MainMenu = () =>  {
         <Menu.Item key="1" icon={<PieChartOutlined />}>
           <Link to="/">Home</Link>
         </Menu.Item>
-        <Menu.Item key="2" icon={<DesktopOutlined />}>
+        {/* <Menu.Item key="2" icon={<DesktopOutlined />}>
           <Link to="/about">About</Link>
         </Menu.Item>
         <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
           <Menu.Item key="6"><Link to="/">Option 6</Link></Menu.Item>
           <Menu.Item key="8"><Link to="/">Option 7</Link></Menu.Item>
-        </SubMenu>
+        </SubMenu> */}
       </Menu>
     </Sider>
   )
