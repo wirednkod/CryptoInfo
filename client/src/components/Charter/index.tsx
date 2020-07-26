@@ -1,4 +1,3 @@
-import { Chart, Tooltip, Axis, Line, Point } from 'viser-react'
 import React, { Fragment, useState } from 'react'
 import { Popover, Radio, message } from 'antd'
 import { FundTwoTone } from '@ant-design/icons'
@@ -25,7 +24,7 @@ const Charter = ({ symbol } : CharterProps) => {
   const [data, setData] = useState<any>([])
 
   const getData = async (window: string = moment().subtract(1, 'days').format('YYYY-MM-DDTHH:mm')) => {
-    let fin = []
+    let fin: any[] = []
     try {
       let res = await axios.get(`https://production.api.coindesk.com/v2/price/values/${toUpper(symbol)}?start_date=${window}&end_date=${currentDate}&ohlc=false`)
       let entries = res?.data?.data?.entries
@@ -86,13 +85,7 @@ const Charter = ({ symbol } : CharterProps) => {
         <Radio.Button value="1M">1M</Radio.Button>
         <Radio.Button value="3M">3M</Radio.Button>
       </Radio.Group>
-      <Chart forcefit height={400} data={data} scale={scale}>
-        <Tooltip />
-        <Axis dataKey="date" />
-        <Axis dataKey="value" />
-        <Line position="date*value" />
-        <Point position="date*value" shape="circle"/>
-      </Chart>
+      
     </Fragment>
   )
 

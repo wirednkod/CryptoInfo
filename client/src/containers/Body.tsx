@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Layout, Row, Col, Table, Button, } from 'antd'
 import { Switch, Route } from 'react-router-dom'
 import { upperCase, toUpper, indexOf } from 'lodash'
+//@ts-ignore
 import { Formatter } from '@helpers/Utils'
+//@ts-ignore
 import { Label, Charter } from '@components'
 import './Body.less'
 
@@ -26,7 +28,7 @@ type MainContentProps = {
   actions: Function
 }
 
-const columns = [{
+const columns: any[] = [{
     title: '#',
     dataIndex: 'rank',
     key: 'rank',

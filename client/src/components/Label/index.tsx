@@ -23,7 +23,7 @@ const Label = ({ title, value, seperator = '', align = 'left'}: LabelProps) =>  
     </Fragment>)
   }
   return (
-    <div key={i} className="main-label">{i}</div>
+    <div className="main-label">{i}</div>
   )
 }
 

@@ -1,7 +1,7 @@
 type formatterStyle = 'currency' | 'percent'
 
 const Formatter = (amount: number = 0, minimumFractionDigits: number = 2, style: formatterStyle = 'currency', currency: string = 'USD', locale: string = 'en-US') => {
-  let options: object
+  let options: object = {}
   if (style === 'percent') {
     options = { style, minimumFractionDigits, maximumFractionDigits: minimumFractionDigits }
   } else if (style === 'currency') {
