@@ -1,3 +1,4 @@
+import { Chart, Tooltip, Axis, Line, Point } from 'viser-react'
 import React, { Fragment, useState } from 'react'
 import { Popover, Radio, message } from 'antd'
 import { FundTwoTone } from '@ant-design/icons'
@@ -85,7 +86,13 @@ const Charter = ({ symbol } : CharterProps) => {
         <Radio.Button value="1M">1M</Radio.Button>
         <Radio.Button value="3M">3M</Radio.Button>
       </Radio.Group>
-      
+      <Chart forcefit height={400} data={data} scale={scale}>
+        <Tooltip />
+        <Axis dataKey="date" />
+        <Axis dataKey="value" />
+        <Line position="date*value" />
+        <Point position="date*value" shape="circle"/>
+      </Chart>
     </Fragment>
   )
 
