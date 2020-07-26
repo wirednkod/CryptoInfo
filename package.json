@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "engines": {
+    "node": "14"
+  },
   "scripts": {
     "init": "yarn && cd client && yarn",
     "start": "concurrently --kill-others \"yarn run build && node ./dist/src/server\" \"cd client && yarn start\"",
