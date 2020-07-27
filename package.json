@@ -8,14 +8,14 @@
   },
   "scripts": {
     "init": "yarn && cd client && yarn",
-    "start": "yarn run build:all && node ./dist/server",
-    "ts:build": "tsc",
+    "start": "node ./dist/server",
+    "build-and-deploy": "yarn run build:all && git push heroku master",
     "prepare-dirs": "mkdir dist/client && cp -r client/build/* dist/client/.",
     "dev": "concurrently --kill-others \"cd client && yarn start\" \"nodemon\"",
     "dev:server": "nodemon",
     "dev:client": "cd client && yarn start",
     "build:all": "yarn run build:server && yarn run build:client && yarn run prepare-dirs",
-    "build:server": "yarn run clean && yarn run ts:build",
+    "build:server": "yarn run clean && tsc -p .",
     "build:client": "cd client && yarn run build",
     "clean": "rm -rf ./dist",
     "test": "echo \"Error: no test specified\" && exit 1"
