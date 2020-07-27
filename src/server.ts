@@ -5,6 +5,7 @@ import * as helmet from 'helmet'
 import loggerMiddleware from './middleware/logger'
 import BasicRouter from './routers/basic'
 import GeckoRouter from './routers/gecko'
+import NewsRouter from './routers/news'
 import App from './app'
 
 dotenv.config()
@@ -21,6 +22,7 @@ const app = new App({
     routes: [
         BasicRouter,
         GeckoRouter,
+        NewsRouter,
     ],
 })
 
