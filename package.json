@@ -9,16 +9,15 @@
   "scripts": {
     "init": "yarn && cd client && yarn",
     "start": "node ./dist/server",
-    "build-and-deploy": "yarn run build:all && git push heroku master",
+    "heroku-prebuild": "yarn run build:all",
     "prepare-dirs": "mkdir dist/client && cp -r client/build/* dist/client/.",
-    "dev": "concurrently --kill-others \"cd client && yarn start\" \"nodemon\"",
-    "dev:server": "nodemon",
-    "dev:client": "cd client && yarn start",
     "build:all": "yarn run build:server && yarn run build:client && yarn run prepare-dirs",
     "build:server": "yarn run clean && tsc -p .",
     "build:client": "cd client && yarn run build",
     "clean": "rm -rf ./dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "concurrently --kill-others \"cd client && yarn start\" \"nodemon\"",
+    "dev:server": "nodemon",
+    "dev:client": "cd client && yarn start"
   },
   "keywords": [],
   "author": "Nikolaos Kontakis",
@@ -35,7 +34,8 @@
     "helmet": "^3.22.0",
     "minimist": "^1.2.5",
     "node-cache": "^5.1.0",
-    "viser-react": "^2.4.8"
+    "viser-react": "^2.4.8",
+    "typescript": "^3.8.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",
@@ -52,7 +52,6 @@
     "eslint-plugin-import": "^2.20.2",
     "nodemon": "^2.0.3",
     "ts-loader": "^6.2.2",
-    "ts-node": "^8.8.2",
-    "typescript": "^3.8.3"
+    "ts-node": "^8.8.2"
   }
 }
