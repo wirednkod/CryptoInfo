@@ -7,6 +7,7 @@ const helmet = require("helmet");
 const logger_1 = require("./middleware/logger");
 const basic_1 = require("./routers/basic");
 const gecko_1 = require("./routers/gecko");
+const news_1 = require("./routers/news");
 const app_1 = require("./app");
 dotenv.config();
 const app = new app_1.default({
@@ -21,6 +22,7 @@ const app = new app_1.default({
     routes: [
         basic_1.default,
         gecko_1.default,
+        news_1.default,
     ],
 });
 app.listen();
