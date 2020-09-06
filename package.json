@@ -9,7 +9,7 @@
   "scripts": {
     "init": "yarn && cd client && yarn",
     "start": "node ./dist/server",
-    "heroku-postbuild": "yarn run build:all",
+    "heroku-postbuild": "yarn init; yarn run build:all",
     "prepare-dirs": "mkdir dist/client && cp -r client/build/* dist/client/.",
     "build:all": "yarn run build:server && yarn run build:client && yarn run prepare-dirs",
     "build:server": "yarn run clean && tsc -p .",
