@@ -3,13 +3,13 @@ import { Layout, Menu } from 'antd'
 import {
   DesktopOutlined,
   LineChartOutlined,
-  TeamOutlined
+  // TeamOutlined
 } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import './MainMenu.less'
 
 const { Sider } = Layout
-const { SubMenu } = Menu
+// const { SubMenu } = Menu
 
 const MainMenu = () =>  {
   const [collapsed, setCollapsed] = useState<boolean>()
@@ -20,7 +20,7 @@ const MainMenu = () =>  {
         <img alt="logo" style={{ width: collapsed ? '50px' : '100px' }} src="/logo.png" />
       </div>
       <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-        <Menu.Item key="1" icon={<DesktopOutlined />}>
+      <Menu.Item key="1" icon={<DesktopOutlined />}>
           <Link to="/">News</Link>
         </Menu.Item>
         <Menu.Item key="2" icon={<LineChartOutlined />}>

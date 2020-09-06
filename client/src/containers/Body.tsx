@@ -6,7 +6,7 @@ import { Formatter } from '@helpers/Utils'
 //@ts-ignore
 import { Label } from '@components'
 //@ts-ignore
-import Charts from '@containers/Charts'
+import { Charts, News } from '@containers/index.tsx'
 import './Body.less'
 
 interface UsefulDataObject {
@@ -54,13 +54,13 @@ const Body = ({ global, actions } : BodyProps) =>  {
       </Row>
       <Layout.Content style={{ margin: '0 16px' }}>
         <Switch>
-          <Route exact path="/">
-            <div>News</div>
-          </Route>
-          <Route path="/charts">
+          <Route exact path="/charts">
             <div className="site-layout-background">
               <Charts />
             </div>
+          </Route>
+          <Route path="/">
+            <News />
           </Route>
           <Route path="/users">
             <div>Users</div>
