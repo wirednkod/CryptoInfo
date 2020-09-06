@@ -41,4 +41,4 @@ node_modules/
 .env
 
 # rollup.js default build output
-# dist/
+dist/
