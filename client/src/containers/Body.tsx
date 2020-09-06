@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Layout, Row, Col } from 'antd'
 import { Switch, Route } from 'react-router-dom'
+import { GithubFilled, LinkedinFilled } from '@ant-design/icons';
 //@ts-ignore
 import { Formatter } from '@helpers/Utils'
 //@ts-ignore
@@ -22,8 +23,6 @@ type BodyProps = {
   global: UsefulDataObject,
   actions: Function
 }
-
-const { Footer } = Layout
 
 const Body = ({ global, actions } : BodyProps) =>  {
   const [active, setActive] = useState<number>()
@@ -52,7 +51,7 @@ const Body = ({ global, actions } : BodyProps) =>  {
           <Label title="Ended ICOs" value={Formatter(endedIcos, undefined, 'decimal')} />
         </Col>
       </Row>
-      <Layout.Content style={{ margin: '0 16px' }}>
+      <Layout.Content style={{ flex: 'unset' }}>
         <Switch>
           <Route exact path="/charts">
             <div className="site-layout-background">
@@ -67,7 +66,20 @@ const Body = ({ global, actions } : BodyProps) =>  {
           </Route>
         </Switch>
       </Layout.Content>
-      <Footer style={{ textAlign: 'center' }}>CryptoInfo - {(new Date()).getFullYear()} - Created by <a href="https://github.com/wirednkod" rel="noopener noreferrer" target="_blank">wirednkod</a></Footer>
+      <div className="footer">
+        <Row>
+          <Col span={24}>CryptoInfo - All rights reserved {(new Date()).getFullYear()}</Col>
+        </Row>
+        <Row>
+          <Col span={24}>Created by wirednkod</Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+            <a href="https://github.com/wirednkod" rel="noopener noreferrer" target="_blank" className="profile-icons"><GithubFilled /></a>
+            <a href="https://www.linkedin.com/in/nikolaoskontakis/" rel="noopener noreferrer" target="_blank" className="profile-icons"><LinkedinFilled /></a>
+          </Col>
+        </Row>
+      </div>
     </Layout>
   )
 }
