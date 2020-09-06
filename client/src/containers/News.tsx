@@ -4,7 +4,7 @@ import {
   message } from 'antd'
 import axios from 'axios'
 //@ts-ignore
-import { NewsLine } from '@components'
+import { NewsLines } from '@components'
 const News = () =>  {
 
   const [news, setNews] = useState()
@@ -41,33 +41,26 @@ const News = () =>  {
     }
   ]
 
-  const bringNews = async () => {
-    try {
-      let res =  await axios.get("/news/get")
-      let { results, next, previous } = res?.data?.data 
-      setNews(results)
-      setNext(next)
-      setPrevious(previous)
-      console.log('res for new is ', results)
-      console.log('next for new is ', next)
-      console.log('previous for new is ', previous)
-    } catch (err) {
-      message.error(`Error while retrieving market data: ${err}`)
-    } finally {
-      console.log('final')
-    }
-  }
-
   useEffect(() => {
-    console.log(next, previous)
+    const bringNews = async () => {
+      try {
+        let res =  await axios.get("/news/get")
+        let { results, next, previous } = res?.data?.data 
+        setNews(results)
+      } catch (err) {
+        message.error(`Error while retrieving market data: ${err}`)
+      } finally {
+        console.log('final')
+      }
+    }
     bringNews()
-  }, [next, previous])
+  }, [])
 
   const createNewsList = (news) => {
     let arr = []
     sample?.map(n => {
-      // <li><a href={n.url} target="_blank">{n.title}</a></li>
-      arr.push(<NewsLine />)
+      console.log('n', n)
+      arr.push(<NewsLines new={n} />)
     })
     return arr
   }

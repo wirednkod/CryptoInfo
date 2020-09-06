@@ -4,17 +4,18 @@ from 'react'
 // import './index.less'
 // type PosType = "left" | "right" | "-moz-initial" | "inherit" | "initial" | "revert" | "unset" | "center" | "end" | "justify" | "match-parent" | "start" | undefined
 
-type NewsLineProps = {
-    // title: string,
-    // value?: any,
-    // seperator?: string,
-    // align?: PosType
+interface NewLineObject {
+  url: string,
+  title: string
 }
 
-const NewsLine = () =>  {
-  
+type NewsLineProps = {
+    newItem: NewLineObject
+}
+
+const NewsLine = ({ newItem } : NewsLineProps) =>  {
   return (
-    <div>News</div>
+    <li><a href={newItem?.url} target="_blank" key={Math.random()}>{newItem?.title}</a></li>
   )
 }
 
