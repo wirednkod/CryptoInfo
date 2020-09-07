@@ -25,10 +25,30 @@ const Main = () =>  {
   })
 
   useEffect(() => {
+    const callGlobal = async () => {
+      let data: UsefulDataObject = {
+        active_cryptocurrencies: 0,
+        upcoming_icos: 0,
+        ended_icos: 0,
+        markets: 0,
+        market_cap_change_percentage_24h_usd: 0,
+        updated_at: 0
+      }
+      try {
+        let res = await axios.get("/gecko/global")
+        let { active_cryptocurrencies, upcoming_icos, ended_icos, markets, market_cap_change_percentage_24h_usd, updated_at } = res?.data?.data
+        data = { active_cryptocurrencies, upcoming_icos, ended_icos, markets, market_cap_change_percentage_24h_usd, updated_at }
+      } catch (err) {
+        message.error(`Error while retrieving market data: ${err}`)
+      } finally {
+        setUsefulData(data)
+      }
+    }
+  
     callGlobal()
   }, [])
 
-  const callGlobal = async () => {
+  const refreshGlobal = async () => {
     let data: UsefulDataObject = {
       active_cryptocurrencies: 0,
       upcoming_icos: 0,
@@ -48,8 +68,9 @@ const Main = () =>  {
     }
   }
 
+
   const callActions  = () => {
-    callGlobal()
+    refreshGlobal()
   }
   
   return (
@@ -58,7 +79,7 @@ const Main = () =>  {
         <MainMenu />
         <Body
           global={usefulData}
-          actions={callActions}
+          actions={() => refreshGlobal()}
            />
       </Layout>
     </Router>
