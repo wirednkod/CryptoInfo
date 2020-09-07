@@ -13,7 +13,7 @@
     "prepare-dirs": "mkdir dist/client && cp -r client/build/* dist/client/.",
     "build:all": "yarn run build:server && yarn run build:client && yarn run prepare-dirs",
     "build:server": "yarn run clean && tsc -p .",
-    "build:client": "cd client && yarn run build",
+    "build:client": "cd client && yarn && yarn run build",
     "clean": "rm -rf ./dist",
     "dev": "concurrently --kill-others \"cd client && yarn start\" \"nodemon\"",
     "dev:server": "nodemon",
