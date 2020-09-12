@@ -46,7 +46,7 @@ const Main = () =>  {
     }
   
     callGlobal()
-  }, [])
+  }, [usefulData])
 
   // const refreshGlobal = async () => {
   //   let data: UsefulDataObject = {
