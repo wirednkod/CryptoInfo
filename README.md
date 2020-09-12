@@ -1,4 +1,6 @@
-# CryptoInfo https://i-crypto-info-app.herokuapp.com/
+# CryptoInfo 
+
+URL: https://i-crypto-info-app.herokuapp.com/
 
 ### What's included:
 - Node (server) and Client in 1 repo; 
