@@ -5,7 +5,7 @@ import {
   LineChartOutlined,
   // TeamOutlined
 } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import './MainMenu.less'
 
 const { Sider } = Layout
@@ -13,13 +13,21 @@ const { Sider } = Layout
 
 const MainMenu = () =>  {
   const [collapsed, setCollapsed] = useState<boolean>()
-
+  let location = useLocation()
+  let selectedKeys
+  switch (location.pathname) {
+    case '/charts':
+      selectedKeys = ['2']
+      break;
+    default:
+      selectedKeys = ['1']
+  }
   return (
     <Sider collapsible collapsed={collapsed} onCollapse={(col) => setCollapsed(col)}>
       <div className="logo">
         <img alt="logo" style={{ width: collapsed ? '50px' : '100px' }} src="/logo.png" />
       </div>
-      <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+      <Menu theme="dark" defaultSelectedKeys={selectedKeys} mode="inline">
       <Menu.Item key="1" icon={<DesktopOutlined />}>
           <Link to="/">News</Link>
         </Menu.Item>

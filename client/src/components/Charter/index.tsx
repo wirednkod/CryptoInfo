@@ -40,7 +40,6 @@ const Charter = ({ symbol } : CharterProps) => {
           }
         })
       }
-      console.log('fin is', fin)
     } catch (err) {
       message.error(`There was an error while retrieving the data: ${err.details}`)
     }
@@ -68,7 +67,6 @@ const Charter = ({ symbol } : CharterProps) => {
       default:
         back = moment().subtract(1, 'days')
     }
-    console.log('now', typeof back.format('YYYY-MM-DDTHH:mm'), currentDate)
     getData(back.format('YYYY-MM-DDTHH:mm'))
   }
 
