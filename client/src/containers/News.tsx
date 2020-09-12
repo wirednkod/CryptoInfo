@@ -1,45 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { 
-  // Table, 
-  message } from 'antd'
+import { Row, Col, Spin, message } from 'antd'
 import axios from 'axios'
 //@ts-ignore
 import { NewsLines } from '@components'
 const News = () =>  {
 
-  const [news, setNews] = useState()
+  const [news, setNews] = useState([])
+  const [spinLoading, setsSpinLoading] = useState(true)
   const [next, setNext] = useState()
   const [previous, setPrevious] = useState()
-
-  const sample = [
-    {
-      created_at: "2020-08-27T08:00:00Z",
-      domain: "coindesk.com",
-      id: 9797578,
-      kind: "news",
-      published_at: "2020-08-27T08:00:00Z",
-      slug: "Is-This-the-Blockchain-Firm-That-Will-Get-Enterprise-to-Finally-Embrace-Open-Networks",
-      source: {
-        title: "CoinDesk",
-        region: "en",
-        domain: "coindesk.com",
-        path: null
-      },
-      title: "Is This the Blockchain Firm That Will Get Enterprise to Finally Embrace Open Networks?",
-      url: "https://cryptopanic.com/news/9797578/Is-This-the-Blockchain-Firm-That-Will-Get-Enterprise-to-Finally-Embrace-Open-Networks",
-      votes: {
-        comments: 0,
-        disliked: 0,
-        important: 0,
-        liked: 0,
-        lol: 0,
-        negative: 0,
-        positive: 0,
-        saved: 0,
-        toxic: 0
-      }
-    }
-  ]
 
   useEffect(() => {
     const bringNews = async () => {
@@ -50,22 +19,44 @@ const News = () =>  {
       } catch (err) {
         message.error(`Error while retrieving market data: ${err}`)
       } finally {
-        console.log('final')
+        setsSpinLoading(false)
+        console.log('final', news)
       }
     }
     bringNews()
   }, [])
 
-  const createNewsList = (news) => {
+  const colSpan = [2, 15, 2, 3]
+  const titles = {
+    titles: true,
+    published_at: 'Published',
+    title: 'Title',
+    kind: 'Kind',
+    source: {
+      title: 'Source'
+    }
+  }
+
+  const createNewsList = (news, colSpan) => {
     let arr = []
-    // sample?.map(n => {
-    //   console.log('n', n)
-    //   arr.push(<NewsLines new={n} />)
-    // })
+    let i = 0
+    news?.map(n => {
+      arr.push(<NewsLines key={i} newItem={n} spans={colSpan} />)
+      i++
+    })
     return arr
   }
 
-  return (createNewsList(news))
+  return (
+    <div style={{ marginTop: '20px' }}>
+      <Spin spinning={spinLoading} style={{ paddingTop: '40%'}}>
+        <Row justify="space-around" align="middle" gutter={[0, 12]}>
+          <NewsLines newItem={titles} spans={colSpan} />
+          {createNewsList(news, colSpan)}
+        </Row>
+      </Spin>
+    </div>
+    )
 }
 
 export default News
