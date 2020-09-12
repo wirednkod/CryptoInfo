@@ -67,20 +67,12 @@ const Main = () =>  {
       setUsefulData(data)
     }
   }
-
-
-  const callActions  = () => {
-    refreshGlobal()
-  }
   
   return (
     <Router>
       <Layout style={{ minHeight: '100vh' }}>
         <MainMenu />
-        <Body
-          global={usefulData}
-          actions={() => refreshGlobal()}
-           />
+        <Body global={usefulData} />
       </Layout>
     </Router>
   )

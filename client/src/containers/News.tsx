@@ -58,10 +58,10 @@ const News = () =>  {
 
   const createNewsList = (news) => {
     let arr = []
-    sample?.map(n => {
-      console.log('n', n)
-      arr.push(<NewsLines new={n} />)
-    })
+    // sample?.map(n => {
+    //   console.log('n', n)
+    //   arr.push(<NewsLines new={n} />)
+    // })
     return arr
   }
 

@@ -20,7 +20,6 @@ class NewsRouter {
     public initRoutes = () => {
         this.router.get(`${this.path}/get`, async (req: Request, res: Response) => {
             const response = await axios.get(this.constructURL())
-            console.log('res', response.data)
             res.send({ success: true, data: response.data })
         })
     }

@@ -20,16 +20,16 @@ interface UsefulDataObject {
 }
 
 type BodyProps = {
-  global: UsefulDataObject,
-  actions: Function
+  global: UsefulDataObject
 }
 
-const Body = ({ global, actions } : BodyProps) =>  {
+const Body = ({ global } : BodyProps) =>  {
   const [active, setActive] = useState<number>()
   const [upcomingIcos, setUpcomingIcos] = useState<number>()
   const [endedIcos, setEndedIcos] = useState<number>()
   const [marks, setMarks] = useState<number>()
   const [marketCap, setMarketCap] = useState<number>()
+  const [labelLoading, setLabelLoading] = useState<Boolean>()
 
   useEffect(() => {
     let { active_cryptocurrencies, upcoming_icos, ended_icos, markets, market_cap_change_percentage_24h_usd } = global
@@ -38,17 +38,18 @@ const Body = ({ global, actions } : BodyProps) =>  {
     setEndedIcos(ended_icos)
     setMarks(markets)
     setMarketCap(market_cap_change_percentage_24h_usd)
+    setLabelLoading(false)
   }, [global])
 
   return (
     <Layout className="site-layout">
       <Row className="top-info">
         <Col span={24}>
-          <Label title="Active crypto" value={Formatter(active, undefined, 'decimal')} />
-          <Label title="Markets" value={Formatter(marks, undefined, 'decimal')} />
-          <Label title="Market Cap Change" value={Formatter(marketCap, 2, 'percent')} />
-          <Label title="Upcoming ICOs" value={Formatter(upcomingIcos, undefined, 'decimal')} />
-          <Label title="Ended ICOs" value={Formatter(endedIcos, undefined, 'decimal')} />
+          <Label title="Active crypto" value={Formatter(active, undefined, 'decimal')} loading={labelLoading} />
+          <Label title="Markets" value={Formatter(marks, undefined, 'decimal')} loading={labelLoading} />
+          <Label title="Market Cap Change" value={Formatter(marketCap, 2, 'percent')} loading={labelLoading} />
+          <Label title="Upcoming ICOs" value={Formatter(upcomingIcos, undefined, 'decimal')} loading={labelLoading} />
+          <Label title="Ended ICOs" value={Formatter(endedIcos, undefined, 'decimal')} loading={labelLoading} />
         </Col>
       </Row>
       <Layout.Content style={{ flex: 'unset' }}>
