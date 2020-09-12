@@ -81,6 +81,7 @@ const columns: any[] = [{
 const Charts = () =>  {
   const [marketsLoading, setMarketsLoading] = useState<boolean>(true)
   const [data, setData] = useState<Array<any>>([])
+  const [isSubscribed, setIsSubscribed] = useState<boolean>(true)
 
   const callMarkets = async () => {
     try {
@@ -95,17 +96,18 @@ const Charts = () =>  {
         'circulating_supply': m.circulating_supply,
         'price_change_percentage_24h': m.price_change_percentage_24h
       }))
-      setData(a)
+      isSubscribed && setData(a)
     } catch (err) {
       message.error(`Error while retrieving market data: ${err}`)
     } finally {
-      setMarketsLoading(false)
+      isSubscribed && setMarketsLoading(false)
     }
   }
 
   useEffect(() => {
     callMarkets()
-  }, [])
+    return () => setIsSubscribed(false)
+  }, [data])
 
   return (
     <Table

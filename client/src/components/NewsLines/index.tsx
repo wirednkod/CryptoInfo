@@ -32,11 +32,10 @@ interface NewLineObject {
 type NewsLineProps = {
     newItem: NewLineObject
     spans: Array<number>
-    key: string
 
 }
 
-const NewsLine = ({ newItem, spans, key } : NewsLineProps) =>  {
+const NewsLine = ({ newItem, spans } : NewsLineProps) =>  {
   let { domain, title } = newItem?.source
   // let comments, disliked, important, liked, lol, negative, positive, saved
   // if (newItem.votes) {
@@ -51,7 +50,7 @@ const NewsLine = ({ newItem, spans, key } : NewsLineProps) =>  {
   // }
   return (
     <>
-    <Row key={key} justify="space-around" align="middle" gutter={[0, 12]}>
+    <Row justify="space-around" align="middle" gutter={[0, 12]}>
       <Col
         span={spans[0]}
         style={

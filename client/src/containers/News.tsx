@@ -66,7 +66,7 @@ const News = () =>  {
     let arr = []
     let i = 0
     news?.map(n => {
-      arr.push(<NewsLines key={i+'_col'} newItem={n} spans={colSpan} />)
+      arr.push(<NewsLines newItem={n} spans={colSpan} />)
       i++
     })
     return arr
@@ -75,7 +75,7 @@ const News = () =>  {
   return (
     <div style={{ marginTop: '20px' }}>
       <Spin spinning={spinLoading} style={{ paddingTop: '40%'}}>
-        <NewsLines key={'titles'} newItem={titles} spans={colSpan} />
+        <NewsLines newItem={titles} spans={colSpan} />
         {createNewsList(news, colSpan)}
       </Spin>
       <div style={{ float: 'right', padding: '20px' }}>

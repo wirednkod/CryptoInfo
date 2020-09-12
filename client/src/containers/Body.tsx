@@ -52,7 +52,7 @@ const Body = ({ global } : BodyProps) =>  {
           <Label title="Ended ICOs" value={Formatter(endedIcos, undefined, 'decimal')} loading={labelLoading} />
         </Col>
       </Row>
-      <Layout.Content style={{ flex: 'unset' }}>
+      <Layout.Content style={{ flex: 'unset', minHeight: '100vh' }}>
         <Switch>
           <Route exact path="/charts">
             <div className="site-layout-background">
