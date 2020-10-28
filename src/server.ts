@@ -9,7 +9,7 @@ import GeckoRouter from './routers/gecko'
 import NewsRouter from './routers/news'
 import App from './app'
 
-import config from '../config.js'
+import config from './config.js'
 
 dotenv.config()
 
