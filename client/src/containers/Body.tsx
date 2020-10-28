@@ -39,6 +39,7 @@ const Body = ({ global } : BodyProps) =>  {
     setMarks(markets)
     setMarketCap(market_cap_change_percentage_24h_usd)
     setLabelLoading(false)
+    console.log(global)
   }, [global])
 
   return (
