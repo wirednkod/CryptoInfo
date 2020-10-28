@@ -3184,6 +3184,13 @@ code-point-at@^1.0.0:
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
+coinmarketcap-cryptocurrency-icons@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/coinmarketcap-cryptocurrency-icons/-/coinmarketcap-cryptocurrency-icons-1.0.1.tgz#d656d4d743a477442a094b4637fc41c6d05ffa8a"
+  integrity sha512-YMd7pWYS5/6iu6/a8Y9YigLH7BzR6QIs1Ah+MGFhIt13O8ty5bIOEQqi195EKJkl4CZFL4WTm9J9+GGVBtgqKg==
+  dependencies:
+    prop-types "^15.7.2"
+
 collection-visit@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/collection-visit/-/collection-visit-1.0.0.tgz#4bc0373c164bc3291b4d368c829cf1a80a59dca0"
@@ -9273,6 +9280,11 @@ react-app-polyfill@^1.0.6:
     raf "^3.4.1"
     regenerator-runtime "^0.13.3"
     whatwg-fetch "^3.0.0"
+
+react-cryptocoins@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/react-cryptocoins/-/react-cryptocoins-1.0.11.tgz#c2f3ea9303538fba9179bc39e4ecb237f7b5f589"
+  integrity sha512-9HAqYA718bBcYYtGPLPOtlAAQZn/fSgLxxfX5RIYN+XZkZC7wDU1UV+hHoj9/D35zOAWxZyuJKK3g3haZtZSiA==
 
 react-dev-utils@^10.2.0:
   version "10.2.1"

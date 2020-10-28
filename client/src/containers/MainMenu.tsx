@@ -3,13 +3,11 @@ import { Layout, Menu } from 'antd'
 import {
   DesktopOutlined,
   LineChartOutlined,
-  // TeamOutlined
 } from '@ant-design/icons'
 import { Link, useLocation } from 'react-router-dom'
 import './MainMenu.less'
 
 const { Sider } = Layout
-// const { SubMenu } = Menu
 
 const MainMenu = () =>  {
   const [collapsed, setCollapsed] = useState<boolean>()
@@ -35,6 +33,9 @@ const MainMenu = () =>  {
           <Link to="/charts">Charts</Link>
         </Menu.Item>
         {/*
+        <Menu.Item key="3" icon={<LineChartOutlined />}>
+          <Link to="/Wallet">Wallet</Link>
+        </Menu.Item>
         <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
           <Menu.Item key="6"><Link to="/">Option 6</Link></Menu.Item>
           <Menu.Item key="8"><Link to="/">Option 7</Link></Menu.Item>

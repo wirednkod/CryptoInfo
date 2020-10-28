@@ -1,32 +1,29 @@
 import React from 'react'
-import { Row, Col } from 'antd'
-import { ClockCircleTwoTone,
-  // CommentOutlined, DislikeOutlined, ExclamationOutlined, LikeOutlined, SmileOutlined, MinusCircleOutlined, PlusCircleOutlined, SaveOutlined
- } from '@ant-design/icons'
+import { Row, Col, Tooltip } from 'antd'
+import { ClockCircleTwoTone } from '@ant-design/icons'
 import moment from 'moment'
+import * as Icon from 'react-cryptocoins'
 import { upperFirst } from 'lodash'
 
 interface NewLineObject {
+  publishedAt: string,
   titles: Boolean,
   url: string,
+  coins: Array<CoinsArray>,
   title: string,
-  kind: string,
-  published_at: string,
+  description: string,
+  primaryCategory: string,
   source: {
-    domain: string,
-    title: string
-  },
-  votes: {
-    comments: number,
-    disliked: number,
-    important: number,
-    liked: number,
-    lol: number,
-    negative: number,
-    positive: number,
-    saved: number,
-    toxic: number
+    name: string,
+    url: string
   }
+}
+
+type CoinsArray = {
+  _id: string,
+  name: string,
+  slug: string,
+  tradingSymbol: string
 }
 
 type NewsLineProps = {
@@ -36,18 +33,20 @@ type NewsLineProps = {
 }
 
 const NewsLine = ({ newItem, spans } : NewsLineProps) =>  {
-  let { domain, title } = newItem?.source
-  // let comments, disliked, important, liked, lol, negative, positive, saved
-  // if (newItem.votes) {
-  //   comments = newItem?.votes?.comments
-  //   disliked = newItem?.votes?.disliked
-  //   important = newItem?.votes?.important
-  //   liked = newItem?.votes?.liked 
-  //   lol = newItem?.votes?.lol
-  //   negative = newItem?.votes?.negative
-  //   positive = newItem?.votes?.positive
-  //   saved = newItem?.votes?.saved
-  // }
+  let { url, name } = newItem?.source
+  let coins = []
+  if (typeof newItem?.coins !== 'string') {
+    newItem?.coins.forEach(c => {
+      coins.push(
+        <Tooltip title={c.name}>
+          <div style={{margin: '0 2px', float: 'left'}}>
+            <Icon.Btc size={16} />
+          </div>
+        </Tooltip>
+        )
+    })
+  }
+
   return (
     <>
     <Row justify="space-around" align="middle" gutter={[0, 12]}>
@@ -56,31 +55,28 @@ const NewsLine = ({ newItem, spans } : NewsLineProps) =>  {
         style={
           !newItem?.titles ? { fontSize: '10px', textAlign: 'center'} : { textAlign: 'center' }}>
             {!newItem?.titles ?
-            moment(newItem?.published_at).format('HH:mm DD/MM')
+            moment(Date.parse(newItem?.publishedAt)).format('HH:mm DD/MM')
             :  <ClockCircleTwoTone />}
       </Col>
+      {/* <Col span={spans[1]}>
+        {!newItem?.titles ? coins : newItem?.coins}
+      </Col> */}
       <Col span={spans[1]} style={newItem?.titles && { fontWeight: 'bold'}}>
         {!newItem?.titles ?
           (<a href={newItem?.url} target="_blank" rel="noopener noreferrer" key={Math.random()}>{newItem?.title}</a>) :
           newItem?.title}
       </Col>
-      <Col span={spans[2]} style={newItem?.titles ? { fontWeight: 'bold', textAlign: 'center' } : { textAlign: 'center' }}>{upperFirst(newItem?.kind)}</Col>
-      <Col span={spans[3]} style={newItem?.titles && { fontWeight: 'bold' }}>
+      <Col span={spans[2]} style={newItem?.titles && { fontWeight: 'bold'}}>
+        {newItem?.description}
+      </Col>
+      <Col span={spans[3]} style={newItem?.titles ? { fontWeight: 'bold', textAlign: 'center' } : { fontWeight: 'bold', textAlign: 'center', fontSize: '11px',  }}>
+        {upperFirst(newItem?.primaryCategory)}
+      </Col>
+      <Col span={spans[4]} style={newItem?.titles && { fontWeight: 'bold' }}>
         {!newItem?.titles ?
-        (<a href={'http://' + domain} target="_blank" rel="noopener noreferrer">{title}</a>) :
-        title}
+        (<a href={url} target="_blank" rel="noopener noreferrer">{name}</a>) : name}
       </Col>
     </Row>
-    {/*
-    <Row>
-      {!newItem?.titles ?
-      (<Col span={spans[4]} style={newItem?.titles ? { fontWeight: 'bold', textAlign: 'center' } : { textAlign: 'center', fontSize: '10px' }}>
-        {comments}<CommentOutlined />{disliked}<DislikeOutlined />{important}<ExclamationOutlined />{liked}<LikeOutlined />{lol}<SmileOutlined />{negative}<MinusCircleOutlined />{positive}<PlusCircleOutlined />{saved}<SaveOutlined />
-      </Col>)
-      : (<Col span={spans[4]}></Col>)
-      }
-    </Row>
-    */}
     </>
   )
 }

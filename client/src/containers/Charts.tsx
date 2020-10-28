@@ -83,31 +83,31 @@ const Charts = () =>  {
   const [data, setData] = useState<Array<any>>([])
   const [isSubscribed, setIsSubscribed] = useState<boolean>(true)
 
-  const callMarkets = async () => {
-    try {
-      let res =  await axios.get("/gecko/coins/markets")
-      let a = Array.prototype.map.call(res?.data, m => ({
-        'key': m.market_cap_rank,
-        'rank': m.market_cap_rank,
-        'name': [m.image, m.name],
-        'symbol': m.symbol,
-        'market_cap': m.market_cap,
-        'current_price': m.current_price,
-        'circulating_supply': m.circulating_supply,
-        'price_change_percentage_24h': m.price_change_percentage_24h
-      }))
-      isSubscribed && setData(a)
-    } catch (err) {
-      message.error(`Error while retrieving market data: ${err}`)
-    } finally {
-      isSubscribed && setMarketsLoading(false)
-    }
-  }
-
   useEffect(() => {
+    const callMarkets = async () => {
+      try {
+        let res =  await axios.get("/gecko/coins/markets")
+        let a = Array.prototype.map.call(res?.data, m => ({
+          'key': m.market_cap_rank,
+          'rank': m.market_cap_rank,
+          'name': [m.image, m.name],
+          'symbol': m.symbol,
+          'market_cap': m.market_cap,
+          'current_price': m.current_price,
+          'circulating_supply': m.circulating_supply,
+          'price_change_percentage_24h': m.price_change_percentage_24h
+        }))
+        isSubscribed && setData(a)
+      } catch (err) {
+        message.error(`Error while retrieving market data: ${err}`)
+      } finally {
+        isSubscribed && setMarketsLoading(false)
+      }
+    }
+
     callMarkets()
     return () => setIsSubscribed(false)
-  }, [data])
+  }, [data, isSubscribed])
 
   return (
     <Table

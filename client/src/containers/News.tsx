@@ -1,7 +1,6 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Spin, message } from 'antd'
 import axios from 'axios'
-import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 //@ts-ignore
 import { NewsLines } from '@components'
 
@@ -32,15 +31,14 @@ const News = () =>  {
 
   const [news, setNews] = useState([])
   const [spinLoading, setsSpinLoading] = useState(true)
-  const [page, setPage] = useState(1)
 
   useEffect(() => {
     const bringNews = async () => {
       try {
-        const params = { page }
-        let res =  await axios.get("/news/get", { params })
-        let { results } = res?.data?.data 
-        setNews(results)
+        let res =  await axios.get("/news/get")
+        // let { results } = res?.data
+        console.log('news', res?.data)
+        setNews(res?.data?.data)
       } catch (err) {
         message.error(`Error while retrieving market data: ${err}`)
       } finally {
@@ -49,40 +47,39 @@ const News = () =>  {
     }
     setsSpinLoading(true)
     bringNews()
-  }, [page])
+  }, [])
 
-  const colSpan = [2, 15, 2, 3]
+  const colSpan = [1, 6, 12, 2, 3]
   const titles = {
     titles: true,
-    published_at: 'Published',
+    publishedAt: 'Published',
+    coins: 'Coins',
     title: 'Title',
-    kind: 'Kind',
+    description: 'Description',
+    primaryCategory: 'Category',
     source: {
-      title: 'Source'
+      name: 'Source'
     }
   }
 
   const createNewsList = (news: Array<NewLineObject>, colSpan: Array<number>) => {
     let arr = []
-    let i = 0
     news?.map(n => {
+      console.log(n)
       arr.push(<NewsLines newItem={n} spans={colSpan} />)
-      i++
     })
     return arr
   }
 
   return (
-    <div style={{ marginTop: '20px' }}>
+    <div style={{ backgroundColor: '#fff' }}>
+      <div style={{ fontSize:'11px', display: 'block', width: '100%', textAlign: 'center', height: '20px', fontWeight: 'bold'}}>
+        News by <a href="https://cryptocontrol.io/" target="_blank" rel="noopener noreferrer">CryptoControl.io</a>
+      </div>
+      <NewsLines newItem={titles} spans={colSpan} />
       <Spin spinning={spinLoading} style={{ paddingTop: '40%'}}>
-        <NewsLines newItem={titles} spans={colSpan} />
         {createNewsList(news, colSpan)}
       </Spin>
-      <div style={{ float: 'right', padding: '20px' }}>
-          <span style={{ paddingRight: '50px' }}>Current page: {page}</span>
-          {page <= 1 ? (<Fragment>previous<LeftOutlined /></Fragment>) : (<a href='#' onClick={() => setPage(page - 1)}>previous<LeftOutlined /></a>)}
-          <a href='#' style={{ paddingLeft: '20px' }} onClick={() => setPage(page + 1)}><RightOutlined />next</a>
-        </div>
     </div>
     )
 }
