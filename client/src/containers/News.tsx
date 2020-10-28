@@ -36,8 +36,6 @@ const News = () =>  {
     const bringNews = async () => {
       try {
         let res =  await axios.get("/news/get")
-        // let { results } = res?.data
-        console.log('news', res?.data)
         setNews(res?.data?.data)
       } catch (err) {
         message.error(`Error while retrieving market data: ${err}`)
