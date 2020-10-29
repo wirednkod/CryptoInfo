@@ -37,11 +37,9 @@ const Main = () =>  {
       try {
         let res = await axios.get("/gecko/global")
         let { active_cryptocurrencies, upcoming_icos, ended_icos, markets, market_cap_change_percentage_24h_usd, updated_at } = res?.data?.data
-        data = { active_cryptocurrencies, upcoming_icos, ended_icos, markets, market_cap_change_percentage_24h_usd, updated_at }
+        setUsefulData({ active_cryptocurrencies, upcoming_icos, ended_icos, markets, market_cap_change_percentage_24h_usd, updated_at })
       } catch (err) {
         message.error(`Error while retrieving market data: ${err}`)
-      } finally {
-        setUsefulData(data)
       }
     }
   

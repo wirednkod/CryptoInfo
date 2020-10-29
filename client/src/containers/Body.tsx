@@ -52,7 +52,7 @@ const Body = ({ global } : BodyProps) =>  {
           <Label title="Ended ICOs" value={Formatter(endedIcos, undefined, 'decimal')} loading={labelLoading} />
         </Col>
       </Row>
-      <Layout.Content style={{ flex: 'unset', minHeight: '100vh', overflow: 'scroll' }}>
+      <Layout.Content style={{ flex: 'unset', overflowY: 'scroll', overflowX: 'hidden', minHeight:'90vh' }}>
         <Switch>
           <Route exact path="/charts">
             <div className="site-layout-background">
@@ -69,15 +69,13 @@ const Body = ({ global } : BodyProps) =>  {
       </Layout.Content>
       <div className="footer">
         <Row>
-          <Col span={24}>CryptoInfo - All rights reserved {(new Date()).getFullYear()}</Col>
-        </Row>
-        <Row>
-          <Col span={24}>Created by wirednkod</Col>
-        </Row>
-        <Row>
           <Col span={24}>
-            <a href="https://github.com/wirednkod" rel="noopener noreferrer" target="_blank" className="profile-icons"><GithubFilled /></a>
-            <a href="https://www.linkedin.com/in/nikolaoskontakis/" rel="noopener noreferrer" target="_blank" className="profile-icons"><LinkedinFilled /></a>
+            <div>
+              Created by <a href="https://github.com/wirednkod" rel="noopener noreferrer" target="_blank">wirednkod</a>
+              <a href="https://github.com/wirednkod" rel="noopener noreferrer" target="_blank" className="profile-icons"><GithubFilled style={{ fontSize: '16px' }} /></a>
+              <a href="https://www.linkedin.com/in/nikolaoskontakis/" rel="noopener noreferrer" target="_blank" className="profile-icons"><LinkedinFilled style={{ fontSize: '16px' }} /></a>
+            </div>
+            <div style={{ fontSize: '11px' }}><b>CryptoInfo</b> - All rights reserved - {(new Date()).getFullYear()}</div>
           </Col>
         </Row>
       </div>
